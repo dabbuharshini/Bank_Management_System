@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bank Account Management System</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI, sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#eef2f7,#d9e4f5);
+height:100vh;
+}
+
+.dashboard{
+display:flex;
+height:100vh;
+}
+
+.sidebar{
+width:250px;
+background:linear-gradient(1deg,#1a2a6c,#162447);
+color:white;
+padding:25px;
+}
+
+.sidebar h2{
+text-align:center;
+margin-bottom:40px;
+font-weight:600;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar li{
+padding:14px;
+margin-bottom:10px;
+cursor:pointer;
+border-radius:6px;
+transition:0.3s;
+}
+
+.sidebar li:hover{
+background:#2f4c8a;
+transform:translateX(5px);
+}
+
+.main{
+flex:1;
+padding:40px;
+}
+
+.main h1{
+margin-bottom:25px;
+color:#1a2a6c;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:12px;
+width:420px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+animation:fadeIn 0.4s ease;
+}
+
+.section{
+display:none;
+}
+
+label{
+font-weight:500;
+}
+
+input{
+width:100%;
+padding:12px;
+margin-top:6px;
+margin-bottom:15px;
+border:1px solid #ccc;
+border-radius:6px;
+font-size:14px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:linear-gradient(135deg,#4facfe,#00f2fe);
+border:none;
+color:white;
+font-size:15px;
+border-radius:6px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.03);
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<div class="sidebar">
+
+<h2>MyBank</h2>
+
+<ul>
+<li onclick="showSection('create')">Create Account</li>
+<li onclick="showSection('deposit')">Deposit Money</li>
+<li onclick="showSection('withdraw')">Withdraw Money</li>
+<li onclick="showSection('balance')">Check Balance</li>
+<li onclick="showSection('transactions')">Transaction History</li>
+</ul>
+
+</div>
+
+<div class="main">
+
+<h1>Bank Dashboard</h1>
+
+<div id="resultBox" style="
+margin-bottom:20px;
+display:none;
+padding:15px;
+background:white;
+border-radius:8px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+font-weight:500;
+color:#1a2a6c;
+width:50%;
+">
+</div>
+
+<!-- Create Account -->
+
+<div id="create" class="card section">
+
+<h3>Create Account</h3>
+
+<form onsubmit="handleForm(event,this)">
+
+<input type="hidden" name="action" value="create">
+
+<label>Account Holder Name</label>
+<input type="text" name="name" required>
+
+<label>Aadhaar</label>
+<input type="text" name="aadhaar" maxlength="12" required oninput="validateAadhaar(this)">
+<p style="color:red;font-size:12px;"></p>
+
+<label>Phone</label>
+<input type="tel" name="phone" maxlength="10" required oninput="validatePhone(this)">
+<p style="color:red;font-size:12px;"></p>
+
+<label>Address</label>
+<input type="text" name="address" required>
+
+<button>Create Account</button>
+
+</form>
+
+</div>
+
+<!-- Deposit -->
+
+<div id="deposit" class="card section">
+
+<h3>Deposit</h3>
+
+<form onsubmit="handleForm(event,this)">
+
+<input type="hidden" name="action" value="deposit">
+
+<label>Account ID</label>
+<input type="number" name="id" required>
+
+<label>Amount</label>
+<input type="number" name="amount" required>
+
+<button>Deposit</button>
+
+</form>
+
+</div>
+
+<!-- Withdraw -->
+
+<div id="withdraw" class="card section">
+
+<h3>Withdraw</h3>
+
+<form onsubmit="handleForm(event,this)">
+
+<input type="hidden" name="action" value="withdraw">
+
+<label>Account ID</label>
+<input type="number" name="id" required>
+
+<label>Amount</label>
+<input type="number" name="amount" required>
+
+<button>Withdraw</button>
+
+</form>
+
+</div>
+
+<!-- Balance -->
+
+<div id="balance" class="card section">
+
+<h3>Check Balance</h3>
+
+<form onsubmit="handleForm(event,this)">
+
+<input type="hidden" name="action" value="balance">
+
+<label>Account ID</label>
+<input type="number" name="id" required>
+
+<button>Check Balance</button>
+
+</form>
+
+</div>
+
+<!-- Transactions -->
+
+<div id="transactions" class="card section">
+
+<h3>Transaction History</h3>
+
+<form onsubmit="handleForm(event,this)">
+
+<input type="hidden" name="action" value="transactions">
+
+<label>Account ID</label>
+
+<input type="text" name="accountId" maxlength="11" oninput="validateAccountId(this)" required>
+<p class="accountError" style="color:red;font-size:13px;"></p>
+
+<button>View Transactions</button>
+
+</form>
+
+</div>
+
+</div>
+</div>
+
+<script>
+
+function logout(){
+window.location.href="/";
+}
+
+function showSection(id){
+
+let sections=document.querySelectorAll(".section");
+
+sections.forEach(sec=>sec.style.display="none");
+
+document.getElementById(id).style.display="block";
+
+document.getElementById("resultBox").style.display="none";
+document.getElementById("resultBox").innerHTML="";
+}
+
+showSection("create");
+
+function validatePhone(input){
+
+let error=input.nextElementSibling;
+
+if(!/^[0-9]*$/.test(input.value)){
+input.value=input.value.replace(/\D/g,'');
+}
+
+if(input.value.length<10){
+error.innerHTML="Phone number must contain exactly 10 digits";
+}else{
+error.innerHTML="";
+}
+}
+
+function validateAadhaar(input){
+
+let error=input.nextElementSibling;
+
+if(!/^[0-9]*$/.test(input.value)){
+input.value=input.value.replace(/\D/g,'');
+}
+
+if(input.value.length<12){
+error.innerHTML="Aadhaar must contain exactly 12 digits";
+}else{
+error.innerHTML="";
+}
+}
+
+function validateAccountId(input){
+
+let error=input.nextElementSibling;
+
+if(!/^[0-9]*$/.test(input.value)){
+input.value=input.value.replace(/\D/g,'');
+}
+
+if(input.value.length<11){
+error.innerHTML="Account ID must be exactly 11 digits";
+}else{
+error.innerHTML="";
+}
+}
+
+function handleForm(event,form){
+
+event.preventDefault();
+
+let formData=new FormData(form);
+let params=new URLSearchParams(formData);
+
+fetch("/bank",{
+method:"POST",
+headers:{
+"Content-Type":"application/x-www-form-urlencoded"
+},
+body:params
+})
+.then(res=>res.text())
+.then(data=>{
+
+let resultBox=document.getElementById("resultBox");
+
+resultBox.innerHTML=data;
+resultBox.style.display="block";
+
+if(data.toLowerCase().includes("invalid") || data.toLowerCase().includes("denied") || data.toLowerCase().includes("error")){
+resultBox.style.background="#ffe6e6";
+resultBox.style.color="#b30000";
+}else{
+resultBox.style.background="#e6ffe6";
+resultBox.style.color="#006600";
+}
+
+});
+
+}
+
+</script>
+
+</body>
+</html>

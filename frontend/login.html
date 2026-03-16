@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bank Employee Login</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI, sans-serif;
+}
+
+body{
+background:#f4f7fb;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* Login Card */
+
+.card{
+
+width:360px;
+padding:35px;
+
+background:white;
+border-radius:10px;
+
+box-shadow:0 8px 25px rgba(0,0,0,0.12);
+
+text-align:center;
+
+}
+
+/* Title */
+
+.card h2{
+margin-bottom:25px;
+color:#1a2a6c;
+}
+
+/* Inputs */
+
+input{
+
+width:100%;
+padding:12px;
+margin-bottom:15px;
+
+border:1px solid #ccc;
+border-radius:6px;
+
+font-size:14px;
+
+}
+
+/* Button */
+
+button{
+
+width:100%;
+padding:12px;
+
+background:#1a2a6c;
+color:white;
+
+border:none;
+border-radius:6px;
+
+font-size:15px;
+cursor:pointer;
+
+transition:0.3s;
+
+}
+
+button:hover{
+
+background:#2f4c8a;
+
+}
+
+/* Result message */
+
+#result{
+margin-top:10px;
+color:red;
+font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>Employee Login</h2>
+
+<form onsubmit="login(event,this)">
+
+<input type="text" name="username" placeholder="Username" required>
+
+<input type="password" name="password" placeholder="Password" required>
+
+<button type="submit">Login</button>
+
+</form>
+
+<p id="result"></p>
+
+</div>
+
+<script>
+
+function login(event,form){
+
+event.preventDefault();
+
+let data = new URLSearchParams(new FormData(form));
+data.append("action","login");
+
+fetch("/bank",{
+method:"POST",
+headers:{
+"Content-Type":"application/x-www-form-urlencoded"
+},
+body:data
+})
+.then(res=>res.text())
+.then(msg=>{
+
+msg = msg.trim();
+
+if(msg === "Login successful"){
+window.location.href="/index.html";
+}
+else{
+document.getElementById("result").innerText = msg;
+}
+
+})
+.catch(()=>{
+document.getElementById("result").innerText="Server error";
+});
+
+}
+
+</script>
+
+</body>
+</html>
