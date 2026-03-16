@@ -96,14 +96,17 @@ after_balance DOUBLE,
 time VARCHAR(50)
 );
 
-How to Run the Project
-1. Redirect to backend folder
+---
+
+## How to Run the Project
+
+###1. Navigate  to backend folder
 cd backend
-2. Compile Java Files
+###2. Compile Java Files
 javac -cp ".;mysql-connector-j-9.6.0.jar" *.java
-3. Run the Server
+###3. Run the Server
 java -cp ".;mysql-connector-j-9.6.0.jar" BankHttpServer
-4. Open Browser
+###4. Open Browser
 http://localhost:9000
 
 ## Functional Modules
@@ -122,7 +125,3 @@ Displays the current balance of the account. (images/Balance Check)
 
 ### 5. Transaction History
 Displays all deposit and withdrawal transactions with timestamps. (images/Transactions history)
-
-<img src="images/transactions.png" width="800">
-
-## Project Structure
