@@ -146,34 +146,27 @@ java -cp ".;mysql-connector-j-9.6.0.jar" BankHttpServer
 
 ## Functional Modules
 
-### 1\. Account Creation
-
-Creates a new bank account with automatic **11-digit account number generation**.(images/Create Account and Dashboard)
-
-\---
-
-### 2\. Deposit
-
-Allows depositing money into an existing account.(images/Deposit)
-
-\---
-
-### 3\. Withdraw
-
-Allows withdrawing money while maintaining a **minimum balance of ₹1000**.(images/Withdraw)
-
-\---
-
-### 4\. Check Balance
-
-Displays the current balance of the account.(image/Balance Check)
-
-\---
-
-### 5\. Transaction History
-
-Displays all deposit and withdrawal transactions with timestamps.(images/Transactions history)
-
+1. Account Creation
+Creates a new bank account with automatic 11-digit account number
+generation.
+`<img src="images/create-account.png" width="800">`{=html}
+---
+2. Deposit
+Allows depositing money into an existing account.
+`<img src="images/deposit.png" width="800">`{=html}
+---
+3. Withdraw
+Allows withdrawing money while maintaining a minimum balance of
+₹1000.
+`<img src="images/withdraw.png" width="800">`{=html}
+---
+4. Balance Check
+Displays the current balance of the account.
+`<img src="images/balance-check.png" width="800">`{=html}
+---
+5. Transaction History
+Displays all deposit and withdrawal transactions with timestamps.
+`<img src="images/transactions.png" width="800">`{=html}
 
 
 \---
