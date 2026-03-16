@@ -149,24 +149,29 @@ java -cp ".;mysql-connector-j-9.6.0.jar" BankHttpServer
 1. Account Creation
 Creates a new bank account with automatic 11-digit account number
 generation.
-`<img src="images/create-account.png" width="800">`{=html}
+<img width="1166" height="914" alt="Screenshot 2026-03-16 211438" src="https://github.com/user-attachments/assets/05f46e69-1efc-4a58-9ab6-f36b14c42f2f" />
+
 ---
 2. Deposit
 Allows depositing money into an existing account.
-`<img src="images/deposit.png" width="800">`{=html}
+<img width="850" height="620" alt="Screenshot 2026-03-16 211637" src="https://github.com/user-attachments/assets/9fd1761f-a767-493c-8f1a-a2aac9d4c316" />
+
 ---
 3. Withdraw
 Allows withdrawing money while maintaining a minimum balance of
 ₹1000.
-`<img src="images/withdraw.png" width="800">`{=html}
+<img width="834" height="590" alt="Screenshot 2026-03-16 211752" src="https://github.com/user-attachments/assets/ddf53d2e-5347-47b8-88c9-6d5a7ff0ac1e" />
+
 ---
 4. Balance Check
 Displays the current balance of the account.
-`<img src="images/balance-check.png" width="800">`{=html}
+<img width="808" height="500" alt="Screenshot 2026-03-16 211803" src="https://github.com/user-attachments/assets/51f30aac-cb9c-47d6-836a-f4eb818aa196" />
+
 ---
 5. Transaction History
 Displays all deposit and withdrawal transactions with timestamps.
-`<img src="images/transactions.png" width="800">`{=html}
+<img width="860" height="670" alt="Screenshot 2026-03-16 211830" src="https://github.com/user-attachments/assets/0894449a-149b-4d34-9e99-d302ad6c8fba" />
+
 
 
 \---
